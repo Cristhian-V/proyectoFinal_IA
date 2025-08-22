@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Asistente Aduanero - Chat</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #1a56db;
+      --secondary-color: #0e2e71;
+      --accent-color: #ff9e1a;
+      --light-color: #f3f4f6;
+      --dark-color: #1f2937;
+      --success-color: #10b981;
+      --border-radius: 8px;
+      --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      color: var(--dark-color);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 1000px;
+      width: 100%;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: var(--box-shadow);
+      overflow: hidden;
+    }
+    
+    header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 1.5rem 2rem;
+      text-align: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .logo-icon {
+      font-size: 2rem;
+    }
+    
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+    
+    .subtitle {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+    
+    .chat-container {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    
+    .conversation-container {
+      position: relative;
+    }
+    
+    .conversation-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    
+    .conversation-header h2 {
+      font-size: 1.2rem;
+      color: var(--secondary-color);
+    }
+    
+    .clear-btn {
+      background: var(--accent-color);
+      color: white;
+      border: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.3s;
+    }
+    
+    .clear-btn:hover {
+      background: #e58a0c;
+    }
+    
+    textarea {
+      width: 100%;
+      height: 300px;
+      padding: 1rem;
+      border: 1px solid #d1d5db;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      resize: none;
+      background-color: var(--light-color);
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+      overflow-y: auto;
+    }
+    
+    .input-form {
+      display: flex;
+      gap: 0.8rem;
+      margin-top: 1rem;
+    }
+    
+    input[type="text"] {
+      flex: 1;
+      padding: 0.9rem 1.2rem;
+      border: 1px solid #d1d5db;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+    }
+    
+    input[type="text"]:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.1);
+    }
+    
+    button[type="submit"] {
+      padding: 0 1.8rem;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    button[type="submit"]:hover {
+      background-color: var(--secondary-color);
+    }
+    
+    .help-text {
+      margin-top: 1rem;
+      padding: 1rem;
+      background-color: #eff6ff;
+      border-radius: var(--border-radius);
+      border-left: 4px solid var(--primary-color);
+    }
+    
+    .help-text h3 {
+      color: var(--secondary-color);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .examples {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 0.8rem;
+      margin-top: 0.8rem;
+    }
+    
+    .example {
+      padding: 0.6rem;
+      background: white;
+      border-radius: var(--border-radius);
+      border: 1px solid #dbeafe;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .example:hover {
+      background: #dbeafe;
+      transform: translateY(-2px);
+    }
+    
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: 2rem;
+      color: var(--dark-color);
+      font-size: 0.9rem;
+    }
+    
+    @media (max-width: 768px) {
+      .input-form {
+        flex-direction: column;
+      }
+      
+      button[type="submit"] {
+        padding: 0.8rem;
+        justify-content: center;
+      }
+      
+      .examples {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <div class="logo-icon"><i class="fas fa-file-contract"></i></div>
+        <div>
+          <h1>Asistente Aduanero</h1>
+          <div class="subtitle">Experto en normativas de liquidación aduanera y OEA</div>
+        </div>
+      </div>
+    </header>
+    
+    <div class="chat-container">
+      <div class="conversation-container">
+        <div class="conversation-header">
+          <h2><i class="fas fa-comments"></i> Conversación</h2>
+          <button class="clear-btn" onclick="clearConversation()"><i class="fas fa-broom"></i> Limpiar</button>
+        </div>
+        
+        <textarea id="conversation" rows="20" cols="100" readonly>
+{% for sender, message in conversation %}
+{{sender}}: {{message}}
+{% endfor %}
+        </textarea>
+      </div>
+      
+      <form method="POST" class="input-form">
+        <input type="text" name='user_input' placeholder="Escribe tu pregunta sobre normativas aduaneras..." required>
+        <button type="submit"><i class="fas fa-paper-plane"></i> Enviar</button>
+      </form>
+      
+      <div class="help-text">
+        <h3><i class="fas fa-lightbulb"></i> Ejemplos de preguntas:</h3>
+        <div class="examples">
+          <div class="example" onclick="insertExample('¿Qué documentación necesito para importar?')">¿Qué documentación necesito para importar?</div>
+          <div class="example" onclick="insertExample('¿Cómo funciona el régimen de liquidación?')">¿Cómo funciona el régimen de liquidación?</div>
+          <div class="example" onclick="insertExample('Requisitos para certificación OEA')">Requisitos para certificación OEA</div>
+          <div class="example" onclick="insertExample('Plazos para declaración de mercancías')">Plazos para declaración de mercancías</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <footer>
+    <p>Asistente Aduanero &copy; 2023 - Especializado en normativas de liquidación aduanera y OEA</p>
+  </footer>
+
+  <script>
+    function insertExample(text) {
+      document.querySelector('input[name="user_input"]').value = text;
+      document.querySelector('input[name="user_input"]').focus();
+    }
+    
+    function clearConversation() {
+      if (confirm('¿Estás seguro de que quieres limpiar la conversación?')) {
+        document.getElementById('conversation').value = '';
+      }
+    }
+    
+    // Auto-scroll to bottom of textarea
+    const textarea = document.getElementById('conversation');
+    textarea.scrollTop = textarea.scrollHeight;
+  </script>
+</body>
+</html>
